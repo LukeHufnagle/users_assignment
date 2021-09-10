@@ -8,6 +8,19 @@
     <title>User List</title>
 </head>
 <style>
+    #options{
+        display: flex;
+    }
+    .btn{
+        width: 100px;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background-color: crimson;
+        text-align: center;
+        margin-left: 5px;
+    }
 </style>
 <body>
     <table>
@@ -16,6 +29,7 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -24,9 +38,23 @@
                     <td>{{one_user.first_name}}</td>
                     <td>{{one_user.last_name}}</td>
                     <td>{{one_user.email}}</td>
+                    <td id="options"> 
+                        <a href="/show_one_user/{{one_user.id}}">Select</a>   <a href="/show_update_user/{{one_user.id}}">Edit</a>  
+                        <!-- <a href="/delete_user/{{one_user.id}}">Delete</a>    -->
+                        <!-- <form action="/show_one_user/{{one_user.id}}">
+                            <input type="submit" class="btn btn-dark" value="Select">
+                        </form>
+                        <form action="/show_update_user/{{one_user.id}}">
+                            <input type="submit" class="btn btn-dark" value='Edit'>
+                        </form> -->
+                        <form action="/delete_user/{{one_user.id}}" method="POST">
+                            <input type="submit" class="btn" value='Delete'>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a href="/return_to_create">Add a New User</a>
 </body>
 </html>

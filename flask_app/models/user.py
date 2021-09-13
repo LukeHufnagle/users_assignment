@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-
+from flask import flash
 
 class User:
     def __init__(self, data):
@@ -9,6 +9,20 @@ class User:
         self.email = data['email']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+
+    @staticmethod
+    def validate_user(form_data):
+        is_valid = True
+        if len(form_data['fname']) <= 3:
+            flash('First name must be at least 3 characters.')
+            is_valid = False
+        if len(form_data['lname']) <= 3:
+            flash('Last name must be at least 3 characters long')
+            is_valid = False
+        if len(form_data['email']) <= 3:
+            flash('Email must be at least 3 characters long')
+            is_valid = False
+        return is_valid
     @classmethod
     def create_user(cls, data):
         query = 'INSERT INTO users (first_name, last_name, email, created_at, updated_at) VALUES ( %(fname)s, %(lname)s, %(email)s, NOW(), NOW());'

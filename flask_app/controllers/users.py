@@ -14,6 +14,10 @@ def show_users():
 
 @app.route('/create_user', methods=["POST"])
 def create_new_user():
+
+    if not User.validate_user(request.form):
+        return redirect('/')
+
     data = {
         'fname': request.form['fname'],
         'lname': request.form['lname'],
